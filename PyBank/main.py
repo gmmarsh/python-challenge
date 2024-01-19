@@ -1,43 +1,54 @@
-
-#Create variables
-total_months = 0
-total_amount = 0
-average_change = 0
-greatest_increase_month = ""
-greatest_increase_amount = 0
-greatest_decrease_month = ""
-greatest_decrease_amount = 0
-
-#Import operating system module
+#Import modules
 import os
-
-#Import module for reading CSV files
 import csv
 
-#Create path to CSV file
-csvpath = os.path.join('Resources', 'budget_data.csv')
+#Set path for file
+csvpath = os.path.join("Resources", "budget_data.csv")
 
-#Open CSV file
-with open(csvpath) as csvfile:
-    csvreader = csv.reader(csvfile, delimiter=',')
+#Open the CSV
+with open(csvpath, newline="") as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=",")
+    csv_header = next(csvreader)
 
+    #Create variables
+    total_months = 0
+    total_amount = 0
+    average_change = 0
+    greatest_increase_amount = 0
+    greatest_increase_month = ""
+    greatest_decrease_amount = 0
+    greatest_decrease_month = ""
+    previous_amount = 0
+    change_amount = 0
+    change_amount_total = 0
 
-#Loop through rows in CSV file
-for row in csvreader:
-    #Count total months
-    total_months += 1
-    #Calculate total amount
-    total_amount += int(row[1])
-    #Calculate average change
-    average_change = total_amount / total_months
-    #Calculate greatest increase in profits
-    if int(row[1]) > greatest_increase_amount:
-        greatest_increase_amount = int(row[1])
-        greatest_increase_month = row[0]
-    #Calculate greatest decrease in profits
-    if int(row[1]) < greatest_decrease_amount:
-        greatest_decrease_amount = int(row[1])
-        greatest_decrease_month = row[0]
+    #Loop through rows
+    for row in csvreader:
+        
+        #Count total months
+        total_months = total_months + 1
+        
+        #Calculate total amount
+        total_amount = total_amount + int(row[1])
+        
+        #Calculate average change amount
+        if previous_amount != 0:
+            change_amount = int(row[1]) - previous_amount
+            change_amount_total = change_amount_total + change_amount
+            average_change = round(change_amount_total / (total_months - 1), 2)
+        
+        #Calculate greatest increase
+        if change_amount > greatest_increase_amount:
+            greatest_increase_amount = change_amount
+            greatest_increase_month = row[0]
+
+        #Calculate greatest decrease
+        if change_amount < greatest_decrease_amount:
+            greatest_decrease_amount = change_amount
+            greatest_decrease_month = row[0]
+        
+        #Set previous amount
+        previous_amount = int(row[1])
 
 print("Financial Analysis")
 print("----------------------------")
