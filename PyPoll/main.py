@@ -1,15 +1,16 @@
-#Import modules
+#Module for reading CSV files
 import os
 import csv
 
 #Set path for file
-csvpath = os.path.join("Resources", "election_data.csv")
+csvpath = os.path.join("PyPoll", "Resources", "election_data.csv")
 
 #Open the CSV
 with open(csvpath) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
+    csv_header = next(csvreader)
 
-    #Create variables
+#Create variables
     total_votes = 0
     Stockham_votes = 0
     DeGette_votes = 0

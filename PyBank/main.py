@@ -3,7 +3,7 @@ import os
 import csv
 
 #Set path for file
-csvpath = os.path.join("Resources", "budget_data.csv")
+csvpath = os.path.join("PyBank", "Resources", "budget_data.csv")
 
 #Open the CSV
 with open(csvpath, newline="") as csvfile:
@@ -51,9 +51,15 @@ with open(csvpath, newline="") as csvfile:
         previous_amount = int(row[1])
 
 print("Financial Analysis")
+
 print("----------------------------")
+
 print("Total Months: " + str(total_months))
+
 print("Total: $" + str(total_amount))
+
 print("Average Change: $" + str(average_change))
+
 print("Greatest Increase in Profits: " + str(greatest_increase_month) + " ($" + str(greatest_increase_amount) + ")")
+
 print("Greatest Decrease in Profits: " + str(greatest_decrease_month) + " ($" + str(greatest_decrease_amount) + ")")
