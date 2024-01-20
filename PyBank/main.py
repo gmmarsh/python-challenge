@@ -49,17 +49,37 @@ with open(csvpath, newline="") as csvfile:
         
         #Set previous amount
         previous_amount = int(row[1])
-
+        
+print()
+print()
 print("Financial Analysis")
-
+print()
 print("----------------------------")
-
+print()
 print("Total Months: " + str(total_months))
-
+print()
 print("Total: $" + str(total_amount))
-
+print()
 print("Average Change: $" + str(average_change))
-
+print()
 print("Greatest Increase in Profits: " + str(greatest_increase_month) + " ($" + str(greatest_increase_amount) + ")")
-
+print()
 print("Greatest Decrease in Profits: " + str(greatest_decrease_month) + " ($" + str(greatest_decrease_amount) + ")")
+print()
+print()
+
+#Set path for file
+output_path = os.path.join("PyBank", "Analysis", "PyBank analysis.txt")
+
+#Open the file
+with open(output_path, "w") as txtfile:
+    
+    #Write results to file
+    txtfile.write("Financial Analysis\n")
+    txtfile.write("----------------------------\n")
+    txtfile.write("Total Months: " + str(total_months) + "\n")
+    txtfile.write("Total: $" + str(total_amount) + "\n")
+    txtfile.write("Average Change: $" + str(average_change) + "\n")
+    txtfile.write("Greatest Increase in Profits: " + str(greatest_increase_month) + " ($" + str(greatest_increase_amount) + ")\n")
+    txtfile.write("Greatest Decrease in Profits: " + str(greatest_decrease_month) + " ($" + str(greatest_decrease_amount) + ")\n")
+    txtfile.write("\n")

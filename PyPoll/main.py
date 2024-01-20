@@ -26,7 +26,7 @@ with open(csvpath) as csvfile:
         #Count total votes
         total_votes = total_votes + 1
         
-        #Calculate votes for each candidate
+       #Calculate votes for each candidate
         if row[2] == "Charles Casper Stockham":
             Stockham_votes = Stockham_votes + 1
         elif row[2] == "Diana DeGette":
@@ -34,10 +34,10 @@ with open(csvpath) as csvfile:
         elif row[2] == "Raymon Anthony Doane":
             Doane_votes = Doane_votes + 1
 
-        #Calculate percentages
-        Stockham_percent = round((Stockham_votes / total_votes) * 100, 2)
-        DeGette_percent = round((DeGette_votes / total_votes) * 100, 2)
-        Doane_percent = round((Doane_votes / total_votes) * 100, 2)
+        # Calculate percentages and format as percentage string
+        Stockham_percent = "{:.3f}%".format((Stockham_votes / total_votes) * 100)
+        DeGette_percent = "{:.3f}%".format((DeGette_votes / total_votes) * 100)
+        Doane_percent = "{:.3f}%".format((Doane_votes / total_votes) * 100)
 
         #Calculate winner
         if Stockham_votes > DeGette_votes:
@@ -50,12 +50,45 @@ with open(csvpath) as csvfile:
         else:
             winner = "Raymon Anthony Doane"
 
+#Print results
+print()
+print()
 print("Election Results")
+print()
 print("-------------------------")
+print()
 print("Total Votes: " + str(total_votes))
+print()
 print("-------------------------")
-print("Charles Casper Stockham: " + str(Stockham_votes) + " " + str(Stockham_percent))
-print("Diana DeGette: " + str(DeGette_votes) + " " + str(DeGette_percent))
-print("Raymon Anthony Doane: " + str(Doane_votes) + " " + str(Doane_percent))
+print()
+print("Charles Casper Stockham: " + str(Stockham_percent) + " (" + str(Stockham_votes) + ")")
+print()
+print("Diana DeGette: " + str(DeGette_percent) + " (" + str(DeGette_votes) + ")")
+print()
+print("Raymon Anthony Doane: " + str(Doane_percent) + " (" + str(Doane_votes) + ")")
+print()
 print("-------------------------")
+print()
 print("Winner: " + str(winner))
+print()
+print("-------------------------")
+print()
+print()
+
+#Set path for file
+output_path = os.path.join("PyPoll", "Analysis", "PyPoll analysis.txt")
+
+#Open the file using "write" mode. Specify the variable to hold the contents
+with open(output_path, "w") as txtfile:
+    
+    #Write results to file
+    txtfile.write("Election Results\n")
+    txtfile.write("-------------------------\n")
+    txtfile.write("Total Votes: " + str(total_votes) + "\n")
+    txtfile.write("-------------------------\n")
+    txtfile.write("Charles Casper Stockham: " + str(Stockham_percent) + " (" + str(Stockham_votes) + ")\n")
+    txtfile.write("Diana DeGette: " + str(DeGette_percent) + " (" + str(DeGette_votes) + ")\n")
+    txtfile.write("Raymon Anthony Doane: " + str(Doane_percent) + " (" + str(Doane_votes) + ")\n")
+    txtfile.write("-------------------------\n")
+    txtfile.write("Winner: " + str(winner) + "\n")
+    txtfile.write("-------------------------\n")
